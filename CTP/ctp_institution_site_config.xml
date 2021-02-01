@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Server
+      port="24050"
+      ssl="yes" 
+    />
+    <Plugin
+      name="AuditLog"
+      id="AuditLog"
+      class="org.rsna.ctp.stdplugins.AuditLog"
+      root="root-directory" />
+    <Plugin
+      name="Redirector"
+      class="org.rsna.ctp.stdplugins.Redirector"
+      httpPort="80"
+      httpsHost="localhost"
+      httpsPort="443" />
+    <Pipeline name="HTTPReceiver">
+      <HttpImportService
+        name="HttpImportService"
+        id="HttpImportService"
+        class="org.rsna.ctp.stdstages.HttpImportService"
+        root="root-directory"
+        port="443"
+        ssl="yes"
+        zip="no"
+        requireAuthentication="yes"
+        acceptDicomObjects="yes"
+        acceptXmlObjects="yes"
+        acceptZipObjects="yes"
+        acceptFileObjects="yes" 
+        logConnections="no"
+        logDuplicates="no"
+        quarantine="quarantine-directory" >
+        <accept ip="xxx.xxx.xxx.xxx" />
+        <accept ip="yyy.yyy.yyy.yyy" />
+      </HttpImportService>
+      <FileStorageService
+        name="FileStorageService"
+        id="FileStorageService"
+        class="org.rsna.ctp.stdstages.FileStorageService"
+        root="roots/FileStorageService"
+        type="day"
+        timeDepth="1"
+        acceptDuplicateUIDs="yes"
+        acceptDicomObjects="yes"
+        acceptXmlObjects="yes"
+        acceptZipObjects="yes"
+        acceptFileObjects="yes"
+        returnStoredFile="yes"
+        setWorldReadable="no"
+        setWorldWritable="no"
+        quarantine="quarantines/FileStorageService" />
+      <DicomAnonymizer
+        name="DicomAnonymizer"
+        id="DicomAnonymizer"
+        class="org.rsna.ctp.stdstages.DicomAnonymizer"
+        root="roots/DicomAnonymizer"
+        script="scripts/dicom-anonymizer-receiver.script"
+        lookupTable="scripts/LookupTable.properties"
+        quarantine="quarantines/DicomAnonymizer" />
+      <FileStorageService
+        class="org.rsna.ctp.stdstages.FileStorageService"
+        name="FileStorageService"
+        id="FileStorageServiceAfterAnonymization"
+        root="roots/FileStorageServiceAfterAnonymization"
+        type="day"
+        timeDepth="1"
+        acceptDuplicateUIDs="yes"
+        acceptDicomObjects="yes"
+        acceptXmlObjects="yes"
+        acceptZipObjects="yes"
+        acceptFileObjects="yes"
+        returnStoredFile="yes"
+        setWorldReadable="no"
+        setWorldWritable="no"
+        quarantine="quarantines/FileStorageServiceAfterAnonymization" />
+      <DicomExportService
+        name="DicomExportService"
+        id="DicomExportService"
+        class="org.rsna.ctp.stdstages.DicomExportService"
+        root="root-directory"
+        quarantine="quarantine-directory"
+        auditLogID="AuditLog"
+        auditLogTags="PatientID;SOPInstanceUID;StudyInstanceUID;InstanceNumber"
+        url="dicom://DestinationAET:ThisAET@XNATDomainName:port"
+        associationTimeout="0"
+        forceClose="no"
+        dicomScript="scripts/df.script"
+        throttle="0"
+        interval="5000" />
+    </Pipeline>  
+</Configuration>

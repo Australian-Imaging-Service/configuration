@@ -1,0 +1,24 @@
+[
+   {
+      "secure" : "true",
+      "searchable" : "true",
+      "accessible" : "false",
+      "element_name" : "xnat:projectData",
+      "code" : "",
+      "browse" : "false",
+      "singular" : "Project",
+      "sequence" : "0",
+      "plural" : "Projects"
+   },
+   {
+      "sequence" : "3",
+      "plural" : "US Sessions",
+      "singular" : "US Session",
+      "code" : "US",
+      "browse" : "true",
+      "element_name" : "xnat:usSessionData",
+      "searchable" : "true",
+      "accessible" : "true",
+      "secure" : "true"
+   }
+]

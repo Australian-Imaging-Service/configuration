@@ -85,6 +85,8 @@
         acceptZipObjects="no"
         class="org.rsna.ctp.stdstages.HttpExportService"
         url="https://xxxx.xxxx:443/data/services/import?import-handler=DICOM-zip&amp;inbody=true"
+        username="xxxx"
+        password="xxxx"
         quarantine="roots/quarantines/HttpExportService"
         root="roots/HttpExportService"
         sendDigestHeader="yes"
@@ -95,9 +97,7 @@
           structure="(0010,0020).(0010,0010)"/>
         <xnat
           cookieName="JSESSIONID"
-          password="xxxx"
-          url="https://xxxx.xxxx:443/data/JSESSION"
-          username="xxxx"/>        
+          url="https://xxxx.xxxx:443/data/JSESSION"/>        
       </HttpExportService>
     </Pipeline>  
 </Configuration>

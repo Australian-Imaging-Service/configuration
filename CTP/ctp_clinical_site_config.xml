@@ -2,7 +2,8 @@
 <Configuration>
     <Server
       port="24050"
-      ssl="yes" 
+      ssl="yes"
+      requireAuthentication="yes"
     />
     <Plugin
       name="AuditLog"

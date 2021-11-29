@@ -86,6 +86,7 @@
         acceptZipObjects="no"
         class="org.rsna.ctp.stdstages.HttpExportService"
         url="https://xxxx.xxxx:443/data/services/import?import-handler=DICOM-zip&amp;inbody=true"
+        contentType="application/zip"
         username="xxxx"
         password="xxxx"
         quarantine="roots/quarantines/HttpExportService"
